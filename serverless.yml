@@ -41,3 +41,16 @@ resources:
             KeyType: RANGE
         # Set the capacity to auto-scale
         BillingMode: PAY_PER_REQUEST
+      
+    IngestaBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:provider.environment.INGEST_BUCKET}
+        AccessControl: Private
+        VersioningConfiguration:
+          Status: Enabled
+        LifecycleConfiguration:
+          Rules:
+            - Id: ExpireAfter30Days
+              Status: Enabled
+              ExpirationInDays: 30
